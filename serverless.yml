@@ -8,7 +8,7 @@
 # https://serverless.com/framework/docs/
 
 # The `service` block is the name of the service
-service: lambda-sensui-csi
+service: luxarity-lambda-sensui-csi
 # The `provider` block defines where your service will be deployed
 provider:
   name: aws

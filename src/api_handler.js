@@ -49,10 +49,12 @@ module.exports.fund = (event, context, callback) => {
 /*
 method: makeReport
 needed parameters in url endpoint:
-  - string report
-  - uint32 timestamp
-  - uint8 latitude
-  - uint8 longitude
+  - uint32 buyerid
+  - uint32 itemcost
+  - uint256 redemptionhash
+  - uint32 tokenid
+  - uint32 orderid
+  - uint32 sku
 
 activates makeReportHandler, which takes the following inputs (which are instatited
 at the top of the file):

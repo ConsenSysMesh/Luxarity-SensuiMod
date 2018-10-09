@@ -42,7 +42,9 @@
     "bip39": "^2.5.0",
     "ganache-cli": "^6.0.3",
     "jest": "^21.2.0",
-    "serverless-domain-manager": "^2.6.0"
+    "serverless-domain-manager": "^2.6.0",
+    "serverless-kms-secrets": "^1.0.3",
+    "serverless-webpack": "^4.4.0"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -54,8 +56,6 @@
     "jsontokens": "^0.7.6",
     "lodash": "^4.17.10",
     "pg": "^7.4.0",
-    "serverless-kms-secrets": "^1.0.2",
-    "serverless-webpack": "^4.2.0",
     "slack-webhook": "^1.0.0",
     "truffle-contract": "^3.0.0",
     "uport-identity": "^2.0.0",
