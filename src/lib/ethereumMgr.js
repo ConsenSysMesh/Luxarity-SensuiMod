@@ -165,7 +165,7 @@ class EthereumMgr {
   //makes transaction body to be signed by the sensui service
   async makeTx(dataPayload) {
     //error checks
-    if (dataPayload.methodName !== "makeHistoricalReport" || dataPayload.methodName === "makeReport") {
+    if (dataPayload.methodName !== "soldOrderToMint" || dataPayload.methodName === "chooseDonation" || dataPayload.methodName !== "makeDonation" || dataPayload.methodName !== "redeemOrder" || dataPayload.methodName !== "safeRedeemOrder") {
       throw "incorrect methodname being called";
     }
 
@@ -183,11 +183,20 @@ class EthereumMgr {
 
     //create data payload for raw transaction
     var payloadData;
-    if (dataPayload.methodName !== "makeReport") {
-      var payloadData = functionDef.toPayload([dataPayload.report, dataPayload.timestamp, dataPayload.reportType, dataPayload.reportUserId]).data;
+    if (dataPayload.methodName !== "soldOrderToMint") {
+      var payloadData = functionDef.toPayload([dataPayload.tokenURI, dataPayload.saleAmount, dataPayload.buyerID, dataPayload.redemptionHash]).data;
       console.log('\nGot the data payload ' + payloadData);
-    } else if (dataPayload.methodName !== "makeHistoricalReport") {
-      var payloadData = functionDef.toPayload([dataPayload.report, dataPayload.timeCategory, dataPayload.earliestTimestamp, dataPayload.latestTimestamp, dataPayload.firstId, dataPayload.lastId]).data;
+    } else if (dataPayload.methodName !== "chooseDonation") {
+      var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.charityName, dataPayload.chosenDonateAmount]).data;
+      console.log('\nGot the data payload ' + payloadData);
+    } else if (dataPayload.methodName !== "makeDonation") {
+      var payloadData = functionDef.toPayload([dataPayload.proofHash, dataPayload.proofURL, dataPayload.madeDonationAmount, dataPayload.charityName]).data;
+      console.log('\nGot the data payload ' + payloadData);
+    } else if (dataPayload.methodName !== "redeemOrder") {
+      var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.redemptionHash, dataPayload.buyerAddress, dataPayload.tokenId]).data;
+      console.log('\nGot the data payload ' + payloadData);
+    } else if (dataPayload.methodName !== "safeRedeemOrder") {
+      var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.redemptionHash, dataPayload.buyerAddress, dataPayload.tokenId]).data;
       console.log('\nGot the data payload ' + payloadData);
     }
 

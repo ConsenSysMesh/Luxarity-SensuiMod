@@ -84,17 +84,38 @@ functions:
   fixNonces:
     handler: src/script_handler.fixNonces
     description: fix for blockchain nonces against database stored nonce
-  makeReport:
-    handler: src/api_handler.makeReport
-    description: create transaction and send to smart contract to make a report
+  soldOrderToMint:
+    handler: src/api_handler.soldOrderToMint
+    description: create transaction and send to smart contract to make a soldOrderToMint
     events:
      - http:
-         path: makeReport
+         path: soldOrderToMint
          method: post
-  makeHistoricalReport:
-    handler: src/api_handler.makeHistoricalReport
-    description: create transaction and send to smart contract to make a historical report
+  chooseDonation:
+    handler: src/api_handler.chooseDonation
+    description: create transaction and send to smart contract to choose donation
     events:
      - http:
-         path: makeHistoricalReport
+         path: chooseDonation
+         method: post
+  makeDonation:
+    handler: src/api_handler.makeDonation
+    description: create transaction and send to smart contract to make a makeDonation
+    events:
+     - http:
+         path: makeDonation
+         method: post
+  redeemOrder:
+    handler: src/api_handler.redeemOrder
+    description: create transaction and send to smart contract to redeem order
+    events:
+     - http:
+         path: redeemOrder
+         method: post
+  safeRedeemOrder:
+    handler: src/api_handler.safeRedeemOrder
+    description: create transaction and send to smart contract to safe redeem order
+    events:
+     - http:
+         path: safeRedeemOrder
          method: post
