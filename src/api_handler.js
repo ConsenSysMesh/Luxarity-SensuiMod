@@ -7,8 +7,6 @@ const TxMgr = require("./lib/txMgr");
 const MetaTxMgr = require("./lib/metaTxMgr");
 const FundHandler = require("./handlers/fund");
 const CheckPendingHandler = require('./handlers/checkPending');
-const MakeReportHandler = require('./handlers/makeReport');
-const MakeHistoricalReportHandler = require('./handlers/makeHistoricalReport');
 const SoldOrderToMintHandler = require('./handlers/soldOrderToMint');
 const ChooseDonationHandler = require('./handlers/chooseDonation');
 const MakeDonationHandler = require('./handlers/makeDonation');
@@ -25,8 +23,6 @@ let txMgr = new TxMgr(ethereumMgr);
 let metaTxMgr = new MetaTxMgr(ethereumMgr);
 let fundHandler = new FundHandler(authMgr, txMgr, ethereumMgr);
 let checkPendingHandler = new CheckPendingHandler(ethereumMgr);
-let makeReportHandler = new MakeReportHandler(ethereumMgr);
-let makeHistoricalReportHandler = new MakeHistoricalReportHandler(ethereumMgr);
 let soldOrderToMintHandler = new MakeSoldOrderToMint(ethereumMgr);
 let chooseDonationHandler = new MakeChooseDonation(ethereumMgr);
 let makeDonationHandler = new MakeDonation(ethereumMgr);
@@ -56,50 +52,6 @@ module.exports.fund = (event, context, callback) => {
   preHandler(fundHandler, event, context, callback);
 };
 
-/*
-method: makeReport
-needed parameters in url endpoint:
-  - uint32 buyerid
-  - uint32 itemcost
-  - uint256 redemptionhash
-  - uint32 tokenid
-  - uint32 orderid
-  - uint32 sku
-
-activates makeReportHandler, which takes the following inputs (which are instatited
-at the top of the file):
-- authMgr
-- ethereumMgr
-- metaTxMgr
-
-Purpose: this activates the handle method in handlers/makeReport.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
-*/
-module.exports.makeReport = (event, context, callback) => {
-  preHandler(makeReportHandler, event, context, callback);
-};
-
-/*
-method: makeReport
-needed parameters in url endpoint:
-  - string reportsHash,
-  - string timecategory,
-  - uint256 earliestTimestamp,
-  - uint256 lastestTimestamp,
-  - uint256 firstId,
-  - uint256 lastId
-
-activates makeHistoricalReportHandler, which takes the following inputs (which are instatited
-at the top of the file):
-  - authMgr*
-  - ethereumMgr
-
-Purpose: this activates the handle method in handlers/makeHistoricalReport.js, which verifies creates meta transaction, signs it, and send it to the smart contract function to be committed to the blockchain. The function also pays for the transaction (for groups of report data that have occurred in the past)
-*/
-module.exports.makeHistoricalReport = (event, context, callback) => {
-  preHandler(makeReportHandler, event, context, callback);
-};
 
 /*
 method: soldOrderToMint
@@ -108,16 +60,6 @@ needed parameters in url endpoint:
   - uint256 _saleAmount
   - bytes32 _buyerID
   - bytes32 _redemptionHash
-
-activates makeReportHandler, which takes the following inputs (which are instatited
-at the top of the file):
-- authMgr
-- ethereumMgr
-- metaTxMgr
-
-Purpose: this activates the handle method in handlers/soldOrderToMint.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 module.exports.soldOrderToMint = (event, context, callback) => {
   preHandler(soldOrderToMintHandler, event, context, callback);
@@ -129,16 +71,6 @@ needed parameters in url endpoint:
   - bytes32 _buyerID
   - string _charityName
   - uint256 _chosenDonateAmount
-
-activates makeReportHandler, which takes the following inputs (which are instatited
-at the top of the file):
-- authMgr
-- ethereumMgr
-- metaTxMgr
-
-Purpose: this activates the handle method in handlers/chooseDonation.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 module.exports.chooseDonation = (event, context, callback) => {
   preHandler(chooseDonationHandler, event, context, callback);
@@ -151,16 +83,6 @@ needed parameters in url endpoint:
   - string _proofURL
   - uint256 _madeDonationAmount
   - string _charityName
-
-activates makeReportHandler, which takes the following inputs (which are instatited
-at the top of the file):
-- authMgr
-- ethereumMgr
-- metaTxMgr
-
-Purpose: this activates the handle method in handlers/makeDonation.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 module.exports.makeDonation = (event, context, callback) => {
   preHandler(makeDonationHandler, event, context, callback);
@@ -173,16 +95,6 @@ needed parameters in url endpoint:
   - bytes32 _redemptionHash
   - address _buyerAddress
   - uint256 _tokenId
-
-activates makeReportHandler, which takes the following inputs (which are instatited
-at the top of the file):
-- authMgr
-- ethereumMgr
-- metaTxMgr
-
-Purpose: this activates the handle method in handlers/redeemOrder.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 module.exports.redeemOrder = (event, context, callback) => {
   preHandler(redeemOrderHandler, event, context, callback);
@@ -195,16 +107,6 @@ needed parameters in url endpoint:
   - bytes32 _redemptionHash
   - address _buyerAddress
   - uint256 _tokenId
-
-activates makeReportHandler, which takes the following inputs (which are instatited
-at the top of the file):
-- authMgr
-- ethereumMgr
-- metaTxMgr
-
-Purpose: this activates the handle method in handlers/safeRedeemOrder.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 module.exports.safeRedeemOrder = (event, context, callback) => {
   preHandler(safeRedeemOrderHandler, event, context, callback);

@@ -10,10 +10,6 @@ activates soldOrderToMintHandler, which takes the following inputs (which are in
 at the top of the file):
   - authMgr*
   - ethereumMgr
-
-Purpose: this activates the handle method in handlers/soldOrderToMint.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 class SoldOrderToMintHandler {
   constructor(ethereumMgr) {
@@ -127,4 +123,4 @@ class SoldOrderToMintHandler {
 
   }
 }
-module.exports = MakeReportHandler;
+module.exports = SoldOrderToMintHandler;

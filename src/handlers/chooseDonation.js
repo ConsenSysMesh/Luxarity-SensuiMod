@@ -9,10 +9,6 @@ activates chooseDonationHandler, which takes the following inputs (which are ins
 at the top of the file):
   - authMgr*
   - ethereumMgr
-
-Purpose: this activates the handle method in handlers/chooseDonation.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 class ChooseDonationHandler {
   constructor(ethereumMgr) {
@@ -121,4 +117,4 @@ class ChooseDonationHandler {
 
   }
 }
-module.exports = MakeReportHandler;
+module.exports = ChooseDonationHandler;

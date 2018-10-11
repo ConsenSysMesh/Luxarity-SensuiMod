@@ -32,7 +32,7 @@ import networks from "./networks";
 import Web3 from "web3";
 import SolidityFunction from "web3/lib/web3/function";
 import fs from 'fs';
-import ABIJ from '../build/contracts/ComplexStorage.json';
+import ABIJ from '../build/contracts/LuxOrders.json';
 import _ from 'lodash';
 import Promise from "bluebird";
 //soon to be deprecated, needs to be exchanged - 6/11/2018
@@ -203,11 +203,11 @@ class EthereumMgr {
 
     //make raw transaction, hard code smart contract address for now 6/23/2018
     //from = funding ethereum Address
-    //to = contract address (old contract: 0x693e3857aa48BB2902FD12F724DC095622e61AfC)
-    //new contract = TBD 9/29/2018
+    //to = contract address
+      //test contract v1 address rinkeby: 0xfd2A3ED81b259156DBA0b8FAd149010e6662C8F4
     let rawTx = {
-      from: '0xe2f54E82B8E413537B95e739C2e80d99dE40C67B',
-      to: '0x693e3857aa48BB2902FD12F724DC095622e61AfC',
+      from: '0xc201e07e1b791a8a259f35a98d881e5054662694',
+      to: '0xfd2A3ED81b259156DBA0b8FAd149010e6662C8F4',
       nonce: await this.getNonce(this.signer.getAddress(), blockchain),
       gasPrice: await this.getGasPrice(blockchain),
       value: "0x00",

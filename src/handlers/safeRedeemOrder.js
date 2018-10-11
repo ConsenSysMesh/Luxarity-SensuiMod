@@ -10,10 +10,6 @@ activates safeRedeemOrderHandler, which takes the following inputs (which are in
 at the top of the file):
   - authMgr*
   - ethereumMgr
-
-Purpose: this activates the handle method in handlers/safeRedeemOrder.js, which verifies creates
-meta transaction, signs it, and send it to the smart contract function to be committed to the
-blockchain. The function also pays for the transaction
 */
 class SafeRedeemOrderHandler {
   constructor(ethereumMgr) {
@@ -127,4 +123,4 @@ class SafeRedeemOrderHandler {
 
   }
 }
-module.exports = MakeReportHandler;
+module.exports = SafeRedeemOrderHandler;
