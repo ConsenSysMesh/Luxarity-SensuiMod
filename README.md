@@ -1,4 +1,4 @@
-# lambda-sensuiMod
+# Luxarity-SensuiMod
 The lambda-sensuiMod repository, created by ConsenSys Social Impact (CSI), consists of a tx funding service and is based on the [lambda-sensui](https://github.com/uport-project/lambda-sensui) repository originally developed by the ConsenSys uPort team. The core difference between the two repositories is rather simple, and consists of the following: 
 
 - uPort's lambda-sensui service (AWS Lambda API) requires a signed meta-transaction POST request from an authorized user of a DApp. In order to sign this request, the user must be using an extension or browser akin to a MetaMask or Brave. 
@@ -175,82 +175,59 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 ```
 
 ## Customized Endpoints Based on Smart Contract Needs
-The result of taking away the metaTx aspect of the original sensui service does have its drawbacks (ones that we are trying to better generalized via this repository). The main drawback is that the deevloper needs to now customize his endpoints to the different smart contract methods that he is trying to use (in connection to the user's front end experience). 
 
-Here's an example of what we mean: 
-Say we have a user experience that is submitting a form. We want the user to be able to immutably submit a form of information without even knowing blockchain is being used. So no metamask and no transaction fees. In order to get the sensuiMod service up and running in our application, your development team would need to take the following steps: 
+### Service Information
 
-1. Develop and test your smart contract that is going to store the data on chain 
-2. Go to Solidity Remix, create a new file on the platform and copy and paste your smart contract in the code area
-3. Compile and submit the smart contract on the network that you'd like to deploy to. Remember, to do this, you do need to have metamask installed on your browser (chrome or firefox) so that you can pay for the transaction fee of deploying your smart contract. You need to make sure that your metamask is signed in on the same network that you're deploying to on Remix. So if you are trying to deploy on Rinkeby, you need to be on the Rinkeby network on metamask and have some Rinkeby test eth to pay for the transaction.
-4. Once the transaction is submitted and the smart contract is deployed, you need to find the ABI json output of your smart contract, copy and paste it into a json file named 'YourSmartContractName.json' and replace the current json file in the `src/build/contracts` folder 
-5. You need to go into the `ethereumMgr` file and make sure that your code is referencing the correct ABI file (not the old one that the repo is referencing)
-6. You need to go into the `serverless.yml` file and change the 'makeReport' function (this part will probably be generalized to makeTransaction, so in the future you will not need to do all of this). Change it to whatever you want - but this is the function call that will end up making the transaction that goes to your smart contract function to store your form data (given the example)
-7. Go into the `api_handler.js` file and change the 'makeReport' function just as you did in the `serverless file`, you also need to make sure that the function is pointing to an aptly named Handler 
-8. Go the the handler file in the `src/handlers` folder and yet again change the file name of makeReport to your new file name. You wont need to change much of this file - just the inputs that your app is submitting and the `methodName` being submitted in the rawTx variable
-9. You now have your custom endpoint(s) to your own smart contract(s)!
+**service:** luxarity-lambda-sensui-csi
 
-#### Header
-```
-Authorization: Bearer <jwt token>
-```
+**stage:** develop
 
-#### Body
-```
-{
-  input: Input from user/service necessary for smart contract to process, 
-  blockchain: <blockchain network name>, 
-}
-```
-#### Response
+**region:** us-east-1
 
-| Status |     Message    |                               |
-|:------:|----------------|-------------------------------|
-| 200    | Ok.            | address funded
-| 400    | Bad request      | No JSON or paramter missing  |
-| 401    | Forbidden      | Fuel token not granted by nisaba |
-| 403    | Forbidden      | Invalid metaTx signature |
-| 500    | Internal Error | Internal error                |
+**stack:** luxarity-lambda-sensui-csi-develop
 
-#### Response data
-```
-{
-  txHash: <tx hash>
-}
-```
-
-## Example of Customized Endpoints (Immutable Evidence)
-An example of using customizable endpoints with the sensuiMod build is included in the repository. The two unique smart contract based endpoints are (1) /MakeReport and (2) /MakeHistoricalReport. MakeReport allows you to submit the SHA256 hash of a particular data set onchain into a mapping for immutable store and reference, and MakeHistoricalReport allows you to submit the SHA256 hash of a span of datasets (all concatenated together) for more scalable immutable store and reference. Here are the data attributes required within each call: 
-
-#### MakeReport 
-  - report; //stringified json of event data
-  - uint32 reportTimestamp; //timestamp of event data
-  - string reportType; //type of event (iot, human reported, etc)
-  - uint32 reportUserId; //id of iot device of user that reported event
-
-#### MakeHistoricalReport 
-  - string reports, //stringified json of all historical event data concatenated together in a certain period (week, month..)
-  - string timecategory, //time period of data set (week of reports, month of reports etc)
-  - uint256 earliestTimestamp, //earliest timestamp of report in batch 
-  - uint256 lastestTimestamp, //latest timestamp of report in batch 
-  - uint256 firstId, //first databse id of report in batch
-  - uint256 lastId //last databse id of report in batch
+**api keys:**
+  None
   
+**endpoints:**
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/v1/fund
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/fund
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/v2/relay
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/relay
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/checkPending
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/soldOrderToMint
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/chooseDonation
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/makeDonation
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/redeemOrder
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/safeRedeemOrder
   
-To test the endpoints, please set up the service with AWS lambda, deploy it, and then use postman. Follow these instructions to get postman to submit the POST requests: 
+**functions:**
+- **fund:** luxarity-lambda-sensui-csi-develop-fund
+- **relay:** luxarity-lambda-sensui-csi-develop-relay
+- **checkPending:** luxarity-lambda-sensui-csi-develop-checkPending
+- **checkBalances:** luxarity-lambda-sensui-csi-develop-checkBalances
+- **fixNonces:** luxarity-lambda-sensui-csi-develop-fixNonces
+- **soldOrderToMint:** luxarity-lambda-sensui-csi-develop-soldOrderToMint
+- **chooseDonation:** luxarity-lambda-sensui-csi-develop-chooseDonation
+- **makeDonation:** luxarity-lambda-sensui-csi-develop-makeDonation
+- **redeemOrder:** luxarity-lambda-sensui-csi-develop-redeemOrder
+- **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
 
-1. Use the "AWS Signature" Authorization header and input your (1) AWS IAM AccessKey, (2) AWS IAM SecretKey, (3) AWS IAM Region, and (4) AWS IAM Service Name - which should be execute-api.
+**inputs per function (smart contract):**
+- **soldOrderToMint:** {"tokenURI": "STRING", "saleAmount": UINT256 , "buyerID": BYTES32, "redemptionHash": BYTES32}
 
-2. Your Body should use the raw format. For example, the body for making a test call to makeReport endpoint would be this: 
+- **chooseDonation:** {"buyerID": "STRING", "charityName": UINT256 , "chosenDonateAmount": BYTES32}
 
-{
-"report": "This is the second message!", 
-"timestamp":"1529823188", 
-"reportId":"37", 
-"reportType":"Iot Sensor", 
-"blockchain":"Rinkeby"
-}
+- **makeDonation:** {"proofHash": BYTES32, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING"}
 
+- **redeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
+
+- **safeRedeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
+
+**test key and secret key to authorize calls**
+Access Key: AKIAIEYMLW6AU5ZWK7OQ
+Secret Key: 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
+  
 ## Common Bugs 
 
 ### “Cannot Connect to Node” Error with Infura
