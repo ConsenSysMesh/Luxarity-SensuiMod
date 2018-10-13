@@ -223,6 +223,10 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 - **redeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
 
 - **safeRedeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
+
+**test key and secret key to authorize calls**
+Access Key: AKIAIEYMLW6AU5ZWK7OQ
+Secret Key: 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
   
 ## Common Bugs 
 
