@@ -179,23 +179,23 @@ class EthereumMgr {
     //get function signature from smart contract method, hardcoding smart contract method name for now
     //resource: https://bit.ly/2MTxgXy
     //resource: https://github.com/ethereum/web3.js/blob/develop/lib/web3/function.js
-    let functionDef = new SolidityFunction('', _.find(ABI, { name: methodName }), '');
+    let functionDef = new SolidityFunction('', _.find(ABI, { name: dataPayload.methodName }), '');
 
     //create data payload for raw transaction
     var payloadData;
-    if (dataPayload.methodName !== "soldOrderToMint") {
+    if (dataPayload.methodName == "soldOrderToMint") {
       var payloadData = functionDef.toPayload([dataPayload.tokenURI, dataPayload.saleAmount, dataPayload.buyerID, dataPayload.redemptionHash]).data;
       console.log('\nGot the data payload ' + payloadData);
-    } else if (dataPayload.methodName !== "chooseDonation") {
+    } else if (dataPayload.methodName == "chooseDonation") {
       var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.charityName, dataPayload.chosenDonateAmount]).data;
       console.log('\nGot the data payload ' + payloadData);
-    } else if (dataPayload.methodName !== "makeDonation") {
+    } else if (dataPayload.methodName == "makeDonation") {
       var payloadData = functionDef.toPayload([dataPayload.proofHash, dataPayload.proofURL, dataPayload.madeDonationAmount, dataPayload.charityName]).data;
       console.log('\nGot the data payload ' + payloadData);
-    } else if (dataPayload.methodName !== "redeemOrder") {
+    } else if (dataPayload.methodName == "redeemOrder") {
       var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.redemptionHash, dataPayload.buyerAddress, dataPayload.tokenId]).data;
       console.log('\nGot the data payload ' + payloadData);
-    } else if (dataPayload.methodName !== "safeRedeemOrder") {
+    } else if (dataPayload.methodName == "safeRedeemOrder") {
       var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.redemptionHash, dataPayload.buyerAddress, dataPayload.tokenId]).data;
       console.log('\nGot the data payload ' + payloadData);
     }
