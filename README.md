@@ -212,6 +212,17 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 - **makeDonation:** luxarity-lambda-sensui-csi-develop-makeDonation
 - **redeemOrder:** luxarity-lambda-sensui-csi-develop-redeemOrder
 - **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
+
+**inputs per function (smart contract):**
+- **soldOrderToMint:** {"tokenURI": "STRING", "saleAmount": UINT256 , "buyerID": BYTES32, "redemptionHash": BYTES32}
+
+- **chooseDonation:** {"buyerID": "STRING", "charityName": UINT256 , "chosenDonateAmount": BYTES32}
+
+- **makeDonation:** {"proofHash": BYTES32, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING"}
+
+- **redeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
+
+- **safeRedeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
   
 ## Common Bugs 
 
