@@ -190,28 +190,28 @@ The authorization header needs a JWT token that is signed by the nisaba service 
   None
   
 **endpoints:**
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/v1/fund
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/fund
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/v2/relay
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/relay
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/checkPending
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/soldOrderToMint
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/chooseDonation
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/makeDonation
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/redeemOrder
-  POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/safeRedeemOrder
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/v1/fund
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/fund
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/v2/relay
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/relay
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/checkPending
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/soldOrderToMint
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/chooseDonation
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/makeDonation
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/redeemOrder
+- POST - https://syylbxpwz6.execute-api.us-east-1.amazonaws.com/develop/safeRedeemOrder
   
 **functions:**
-  **fund:** luxarity-lambda-sensui-csi-develop-fund
-  **relay:** luxarity-lambda-sensui-csi-develop-relay
-  **checkPending:** luxarity-lambda-sensui-csi-develop-checkPending
-  **checkBalances:** luxarity-lambda-sensui-csi-develop-checkBalances
-  **fixNonces:** luxarity-lambda-sensui-csi-develop-fixNonces
-  **soldOrderToMint:** luxarity-lambda-sensui-csi-develop-soldOrderToMint
-  **chooseDonation:** luxarity-lambda-sensui-csi-develop-chooseDonation
-  **makeDonation:** luxarity-lambda-sensui-csi-develop-makeDonation
-  **redeemOrder:** luxarity-lambda-sensui-csi-develop-redeemOrder
-  **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
+- **fund:** luxarity-lambda-sensui-csi-develop-fund
+- **relay:** luxarity-lambda-sensui-csi-develop-relay
+- **checkPending:** luxarity-lambda-sensui-csi-develop-checkPending
+- **checkBalances:** luxarity-lambda-sensui-csi-develop-checkBalances
+- **fixNonces:** luxarity-lambda-sensui-csi-develop-fixNonces
+- **soldOrderToMint:** luxarity-lambda-sensui-csi-develop-soldOrderToMint
+- **chooseDonation:** luxarity-lambda-sensui-csi-develop-chooseDonation
+- **makeDonation:** luxarity-lambda-sensui-csi-develop-makeDonation
+- **redeemOrder:** luxarity-lambda-sensui-csi-develop-redeemOrder
+- **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
   
 ## Common Bugs 
 
