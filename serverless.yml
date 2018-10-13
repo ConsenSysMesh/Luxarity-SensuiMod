@@ -91,6 +91,7 @@ functions:
      - http:
          path: soldOrderToMint
          method: post
+         cors: true
   chooseDonation:
     handler: src/api_handler.chooseDonation
     description: create transaction and send to smart contract to choose donation
@@ -98,6 +99,7 @@ functions:
      - http:
          path: chooseDonation
          method: post
+         cors: true
   makeDonation:
     handler: src/api_handler.makeDonation
     description: create transaction and send to smart contract to make a makeDonation
@@ -105,6 +107,7 @@ functions:
      - http:
          path: makeDonation
          method: post
+         cors: true
   redeemOrder:
     handler: src/api_handler.redeemOrder
     description: create transaction and send to smart contract to redeem order
@@ -112,6 +115,7 @@ functions:
      - http:
          path: redeemOrder
          method: post
+         cors: true
   safeRedeemOrder:
     handler: src/api_handler.safeRedeemOrder
     description: create transaction and send to smart contract to safe redeem order
@@ -119,3 +123,4 @@ functions:
      - http:
          path: safeRedeemOrder
          method: post
+         cors: true
