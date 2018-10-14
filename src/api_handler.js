@@ -23,11 +23,11 @@ let txMgr = new TxMgr(ethereumMgr);
 let metaTxMgr = new MetaTxMgr(ethereumMgr);
 let fundHandler = new FundHandler(authMgr, txMgr, ethereumMgr);
 let checkPendingHandler = new CheckPendingHandler(ethereumMgr);
-let soldOrderToMintHandler = new MakeSoldOrderToMint(ethereumMgr);
-let chooseDonationHandler = new MakeChooseDonation(ethereumMgr);
-let makeDonationHandler = new MakeDonation(ethereumMgr);
-let redeemOrderHandler = new MakeRedeemOrder(ethereumMgr);
-let safeRedeemOrderHandler = new MakeSafeRedeemOrder(ethereumMgr);
+let soldOrderToMintHandler = new SoldOrderToMintHandler(ethereumMgr);
+let chooseDonationHandler = new ChooseDonationHandler(ethereumMgr);
+let makeDonationHandler = new MakeDonationHandler(ethereumMgr);
+let redeemOrderHandler = new RedeemOrderHandler(ethereumMgr);
+let safeRedeemOrderHandler = new SafeRedeemOrderHandler(ethereumMgr);
 
 /*
 method: fund
