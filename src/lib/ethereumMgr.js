@@ -174,13 +174,16 @@ class EthereumMgr {
 
     //get ABI and parse through it
     let ABI = JSON.parse(JSON.stringify(ABIJ));
-    console.log(ABIJ);
+    let ABI_FINAL = ABI['abi'];
+    console.log(ABI_FINAL);
     console.log("\nSuccessfully referenced ABI.");
 
     //get function signature from smart contract method, hardcoding smart contract method name for now
     //resource: https://bit.ly/2MTxgXy
     //resource: https://github.com/ethereum/web3.js/blob/develop/lib/web3/function.js
-    let functionDef = new SolidityFunction('', _.find(ABI, { name: dataPayload.methodName }), '');
+    let functionDef = new SolidityFunction('', _.find(ABI_FINAL, { name: dataPayload.methodName }), '');
+
+    console.log("\nSuccessfully referenced function in smart contract.\n");
 
     //create data payload for raw transaction
     var payloadData;
@@ -206,11 +209,12 @@ class EthereumMgr {
     //from = funding ethereum Address
     //to = contract address
       //test contract v1 address rinkeby: 0xfd2A3ED81b259156DBA0b8FAd149010e6662C8F4
+      //test contract v1 address rinkeby: 0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828
     let rawTx = {
-      from: '0xc201e07e1b791a8a259f35a98d881e5054662694',
-      to: '0xfd2A3ED81b259156DBA0b8FAd149010e6662C8F4',
-      nonce: await this.getNonce(this.signer.getAddress(), blockchain),
-      gasPrice: await this.getGasPrice(blockchain),
+      from: '0xfAdB0EE528E55bCb5F5Cd3e40D664a66358f5961',
+      to: '0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828',
+      nonce: await this.getNonce(this.signer.getAddress(), dataPayload.blockchain),
+      gasPrice: await this.getGasPrice(dataPayload.blockchain),
       value: "0x00",
       data: payloadData,
     };
@@ -219,7 +223,7 @@ class EthereumMgr {
     const estimatedGas = await this.estimateGas(
       tx,
       this.signer.getAddress(),
-      blockchain
+      dataPayload.blockchain
     );
     // add some buffer to the limit
     tx.gasLimit = estimatedGas + 1000;
@@ -361,26 +365,18 @@ class EthereumMgr {
       connectionString: this.pgUrl
     });
 
-    //check if the transaction has actually completed
-    let txReceipt = this.getTransactionReceipt(txHash, networkName);
-
-    if (txReceipt.status) {
-      try {
-        await client.connect();
-        const res = await client.query(
-          "INSERT INTO tx(tx_hash, network,tx_options) \
-               VALUES ($1,$2,$3) ",
-          [txHash, networkName, txObj]
-        );
-      } catch (e) {
-        throw e;
-      } finally {
-        await client.end();
-      }
-    } else {
-      throw 'no transaction receipt available';
+    try {
+      await client.connect();
+      const res = await client.query(
+        "INSERT INTO tx(tx_hash, network,tx_options) \
+             VALUES ($1,$2,$3) ",
+        [txHash, networkName, txObj]
+      );
+    } catch (e) {
+      throw e;
+    } finally {
+      await client.end();
     }
-
   }
 
   async getTransactionReceipt(txHash, networkName) {

@@ -56,6 +56,7 @@
     "jsontokens": "^0.7.6",
     "lodash": "^4.17.10",
     "pg": "^7.4.0",
+    "sha256": "^0.2.0",
     "slack-webhook": "^1.0.0",
     "truffle-contract": "^3.0.0",
     "uport-identity": "^2.0.0",
