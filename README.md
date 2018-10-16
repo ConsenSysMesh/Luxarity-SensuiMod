@@ -174,7 +174,7 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 }
 ```
 
-## Customized Endpoints Based on Smart Contract Needs
+## LuxOrders Smart Contract API Service Details  
 
 ### Service Information
 
@@ -214,19 +214,29 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 - **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
 
 **inputs per function (smart contract):**
-- **soldOrderToMint:** {"tokenURI": "STRING", "saleAmount": UINT256 , "buyerID": BYTES32, "redemptionHash": BYTES32}
+- **soldOrderToMint:** {"tokenURI": "STRING", "saleAmount": UINT256 , "buyerID": STRING THAT SHOULD BE SHA256 HASH OF BUYER EMAIL, "redemptionHash": STRING THAT SHOULD BE SHA256 HASH OF REDEPTION CODE, WHICH CAN BE ANY UNIQUE AND ACCESSIBLE COMBINATION OF INFORMATION EACH BUYER HAS ACCESS TO}
 
 - **chooseDonation:** {"buyerID": "STRING", "charityName": UINT256 , "chosenDonateAmount": BYTES32}
 
-- **makeDonation:** {"proofHash": BYTES32, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING"}
+- **makeDonation:** {"proofHash": STRING THAT SHOULD BE SHA256 HASH OF PROOF OF DONATION DATA, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING"}
 
 - **redeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
 
-- **safeRedeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
+- **safeRedeemOrder:** {"buyerID": STRING THAT SHOULD BE SHA256 HASH OF BUYER EMAIL, "redemptionHash": STRING THAT SHOULD BE SHA256 HASH OF REDEPTION CODE, WHICH CAN BE ANY UNIQUE AND ACCESSIBLE COMBINATION OF INFORMATION EACH BUYER HAS ACCESS TO, "buyerAddress": ADDRESS, "tokenId": UINT256}
 
 **test key and secret key to authorize calls**
 Access Key: AKIAIEYMLW6AU5ZWK7OQ
 Secret Key: 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
+
+**INFURA key used**
+Access Key: dafcac3faf174e009483337759967f85
+
+## Database Credentials 
+Host: luxarity.cijmyc3a39cj.us-east-1.rds.amazonaws.com
+User: b4siga
+Password: Social1mp4ct
+Database: lux
+Port: 5432
   
 ## Common Bugs 
 
