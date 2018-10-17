@@ -214,15 +214,15 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 - **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
 
 **inputs per function (smart contract):**
-- **soldOrderToMint:** {"tokenURI": "STRING", "saleAmount": UINT256 , "buyerID": STRING THAT SHOULD BE SHA256 HASH OF BUYER EMAIL, "redemptionHash": STRING THAT SHOULD BE SHA256 HASH OF REDEPTION CODE, WHICH CAN BE ANY UNIQUE AND ACCESSIBLE COMBINATION OF INFORMATION EACH BUYER HAS ACCESS TO}
+- **soldOrderToMint:** {"tokenURI": "STRING", "totalPrice": UINT256, "customerEmail": STRING, "orderId": UINT256, "orderNumber": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
 
-- **chooseDonation:** {"buyerID": "STRING", "charityName": UINT256 , "chosenDonateAmount": BYTES32}
+- **chooseDonation:** {"customerEmail": STRING, "charityName": UINT256 , "chosenDonateAmount": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
 
-- **makeDonation:** {"proofHash": STRING THAT SHOULD BE SHA256 HASH OF PROOF OF DONATION DATA, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING"}
+- **makeDonation:** {"proofHash": STRING THAT SHOULD BE SHA256 HASH OF PROOF OF DONATION DATA, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING", "blockchain": "STRING OF NETWORK BEING USED"}
 
-- **redeemOrder:** {"buyerID": BYTES32, "redemptionHash": BYTES32 , "buyerAddress": ADDRESS, "tokenId": UINT256}
+- **redeemOrder:** {"customerEmail": STRING, "orderId": UINT256, "orderNumber": UINT256, "buyerAddress": ADDRESS, "tokenId": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
 
-- **safeRedeemOrder:** {"buyerID": STRING THAT SHOULD BE SHA256 HASH OF BUYER EMAIL, "redemptionHash": STRING THAT SHOULD BE SHA256 HASH OF REDEPTION CODE, WHICH CAN BE ANY UNIQUE AND ACCESSIBLE COMBINATION OF INFORMATION EACH BUYER HAS ACCESS TO, "buyerAddress": ADDRESS, "tokenId": UINT256}
+- **safeRedeemOrder:** {"customerEmail": STRING, "orderId": UINT256, "orderNumber": UINT256, "buyerAddress": ADDRESS, "tokenId": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
 
 **test key and secret key to authorize calls**
 Access Key: AKIAIEYMLW6AU5ZWK7OQ
