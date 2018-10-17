@@ -1,5 +1,6 @@
 /*
 method: safeRedeemOrder
+
 needed parameters in url endpoint:
   - bytes32 buyerID
   - bytes32 redemptionHash
@@ -11,6 +12,11 @@ at the top of the file):
   - authMgr*
   - ethereumMgr
 */
+
+//resources
+import sha256 from 'js-sha256';
+
+//class
 class SafeRedeemOrderHandler {
   constructor(ethereumMgr) {
     this.ethereumMgr = ethereumMgr;
@@ -47,12 +53,16 @@ class SafeRedeemOrderHandler {
     }
 
     /* checking for inputs */
-    if (!body.buyerID) {
-      cb({ code: 400, message: "buyerID parameter missing" });
+    if (!body.customerEmail && typeof(body.orderId) === "string") {
+      cb({ code: 400, message: "customerEmail missing" });
       return;
     }
-    if (!body.redemptionHash) {
-      cb({ code: 400, message: "redemptionHash parameter missing" });
+    if (!body.orderId && typeof(body.orderId) === "number") {
+      cb({ code: 400, message: "orderId parameter missing" });
+      return;
+    }
+    if (!body.orderNumber && typeof(body.orderId) === "number") {
+      cb({ code: 400, message: "orderNumber parameter missing" });
       return;
     }
     if (!body.buyerAddress) {
@@ -71,13 +81,18 @@ class SafeRedeemOrderHandler {
       return;
     }
 
+    //create hashed buyerID, redemptionHash
+    let buyerID = sha256(body.customerEmail);
+    let secretSum = body.orderNumber + body.orderId;
+    let redemptionHash = sha256(secretSum);
+
     //get transaction made
     console.log('Building rawtx');
     let rawTx;
     try {
       rawTx = await this.ethereumMgr.makeTx({
-        buyerID: body.buyerID,
-        redemptionHash: body.redemptionHash,
+        buyerID: buyerID,
+        redemptionHash: redemptionHash,
         buyerAddress: body.buyerAddress,
         tokenId: body.tokenId,
         blockchain: body.blockchain.toLowerCase(),
