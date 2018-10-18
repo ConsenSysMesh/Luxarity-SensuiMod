@@ -47,11 +47,11 @@ class SafeRedeemOrderHandler {
     }
 
     /* checking for inputs */
-    if (!body.buyerID) {
+    if (!body.customerEmailSHA256) {
       cb({ code: 400, message: "buyerID parameter missing" });
       return;
     }
-    if (!body.redemptionHash) {
+    if (!body.redemptionPinSHA256) {
       cb({ code: 400, message: "redemptionHash parameter missing" });
       return;
     }
@@ -76,8 +76,8 @@ class SafeRedeemOrderHandler {
     let rawTx;
     try {
       rawTx = await this.ethereumMgr.makeTx({
-        buyerID: body.buyerID,
-        redemptionHash: body.redemptionHash,
+        buyerID: body.customerEmailSHA256,
+        redemptionHash: body.redemptionPinSHA256,
         buyerAddress: body.buyerAddress,
         tokenId: body.tokenId,
         blockchain: body.blockchain.toLowerCase(),

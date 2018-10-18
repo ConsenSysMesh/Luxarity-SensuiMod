@@ -46,7 +46,7 @@ class ChooseDonationHandler {
     }
 
     /* checking for inputs */
-    if (!body.buyerID) {
+    if (!body.customerEmailSHA256) {
       cb({ code: 400, message: "buyerID parameter missing" });
       return;
     }
@@ -71,7 +71,7 @@ class ChooseDonationHandler {
     let rawTx;
     try {
       rawTx = await this.ethereumMgr.makeTx({
-        buyerID: body.buyerID,
+        buyerID: body.customerEmailSHA256,
         charityName: body.charityName,
         chosenDonateAmount: body.chosenDonateAmount,
         blockchain: body.blockchain.toLowerCase(),

@@ -51,15 +51,23 @@ class SoldOrderToMintHandler {
       cb({ code: 400, message: "tokenURI parameter missing" });
       return;
     }
-    if (!body.saleAmount) {
+    if (!body.totalPrice) {
       cb({ code: 400, message: "saleAmount parameter missing" });
       return;
     }
-    if (!body.buyerID) {
+    if (!body.customerEmailSHA256) {
       cb({ code: 400, message: "buyerIDparameter missing" });
       return;
     }
-    if (!body.redemptionHash) {
+    if (!body.orderId) {
+      cb({ code: 400, message: "orderId missing" });
+      return;
+    }
+    if (!body.orderNumber) {
+      cb({ code: 400, message: "orderNumber missing" });
+      return;
+    }
+    if (!body.redemptionPinSHA256) {
       cb({ code: 400, message: "redemptionHash parameter missing" });
       return;
     }
@@ -77,9 +85,9 @@ class SoldOrderToMintHandler {
     try {
       rawTx = await this.ethereumMgr.makeTx({
         tokenURI: body.tokenURI,
-        saleAmount: body.saleAmount,
-        buyerID: body.buyerID,
-        redemptionHash: body.redemptionHash,
+        saleAmount: body.totalPrice,
+        buyerID: body.customerEmailSHA256,
+        redemptionHash: body.redemptionPinSHA256,
         blockchain: body.blockchain.toLowerCase(),
         methodName: 'soldOrderToMint',
       });
