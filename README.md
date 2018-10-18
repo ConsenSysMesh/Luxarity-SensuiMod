@@ -224,6 +224,20 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 
 - **safeRedeemOrder:** {"customerEmailSHA256": STRING, "redemptionPinSHA256": SHA256 STRING of ORDER ID + ORDER NUMBER, "buyerAddress": ADDRESS, "tokenId": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
 
+
+**database table CRUD per function:**
+
+- **soldOrderToMint:** INSERT into TX Table, UPDATE NONCES Table, INSERT into TOKENS table
+
+- **chooseDonation:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
+- **makeDonation:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
+- **redeemOrder:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
+- **safeRedeemOrder:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
+
 **test key and secret key to authorize calls**
 Access Key: AKIAIEYMLW6AU5ZWK7OQ
 Secret Key: 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
