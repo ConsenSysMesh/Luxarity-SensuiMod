@@ -214,15 +214,29 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 - **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
 
 **inputs per function (smart contract):**
-- **soldOrderToMint:** {"tokenURI": "STRING", "totalPrice": UINT256, "customerEmail": STRING, "orderId": UINT256, "orderNumber": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
+- **soldOrderToMint:** {"tokenURI": "STRING", "totalPrice": UINT256, "customerEmailSHA256": SHA256 STRING of CUSTOMER EMAIL, "orderId": UINT256, "orderNumber": UINT256, "redemptionPinSHA256": SHA256 STRING of ORDER ID + ORDER NUMBER, "blockchain": "STRING OF NETWORK BEING USED"}
 
-- **chooseDonation:** {"customerEmail": STRING, "charityName": UINT256 , "chosenDonateAmount": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
+- **chooseDonation:** {"customerEmailSHA256": STRING, "charityName": UINT256 , "chosenDonateAmount": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
 
 - **makeDonation:** {"proofHash": STRING THAT SHOULD BE SHA256 HASH OF PROOF OF DONATION DATA, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING", "blockchain": "STRING OF NETWORK BEING USED"}
 
-- **redeemOrder:** {"customerEmail": STRING, "orderId": UINT256, "orderNumber": UINT256, "buyerAddress": ADDRESS, "tokenId": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
+- **redeemOrder:** {"customerEmailSHA256": STRING, "redemptionPinSHA256": SHA256 STRING of ORDER ID + ORDER NUMBER, "buyerAddress": ADDRESS, "tokenId": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
 
-- **safeRedeemOrder:** {"customerEmail": STRING, "orderId": UINT256, "orderNumber": UINT256, "buyerAddress": ADDRESS, "tokenId": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
+- **safeRedeemOrder:** {"customerEmailSHA256": STRING, "redemptionPinSHA256": SHA256 STRING of ORDER ID + ORDER NUMBER, "buyerAddress": ADDRESS, "tokenId": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
+
+
+**database table CRUD per function:**
+
+- **soldOrderToMint:** INSERT into TX Table, UPDATE NONCES Table, INSERT into TOKENS table
+
+- **chooseDonation:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
+- **makeDonation:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
+- **redeemOrder:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
+- **safeRedeemOrder:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
+
 
 **test key and secret key to authorize calls**
 Access Key: AKIAIEYMLW6AU5ZWK7OQ
