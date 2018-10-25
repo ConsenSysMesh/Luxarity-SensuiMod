@@ -38,36 +38,36 @@ class RedeemOrderHandler {
       try {
         body = JSON.parse(event.body);
       } catch (e) {
-        cb({ code: 400, message: "no json body" });
+        cb({ code: 500, message: "no json body" });
         return;
       }
     } else {
-      cb({ code: 400, message: "no json body" });
+      cb({ code: 500, message: "no json body" });
       return;
     }
 
     /* checking for inputs */
     if (!body.customerEmailSHA256) {
-      cb({ code: 400, message: "buyerID parameter missing" });
+      cb({ code: 500, message: "buyerID parameter missing" });
       return;
     }
     if (!body.redemptionPinSHA256) {
-      cb({ code: 400, message: "redemptionHash parameter missing" });
+      cb({ code: 500, message: "redemptionHash parameter missing" });
       return;
     }
     if (!body.buyerAddress) {
-      cb({ code: 400, message: "buyerAddress parameter missing" });
+      cb({ code: 500, message: "buyerAddress parameter missing" });
       return;
     }
     if (!body.tokenId) {
-      cb({ code: 400, message: "tokenId parameter missing" });
+      cb({ code: 500, message: "tokenId parameter missing" });
       return;
     }
     if (!body.blockchain) {
-      cb({ code: 400, message: "blockchain parameter missing" });
+      cb({ code: 500, message: "blockchain parameter missing" });
       return;
     } else if (body.blockchain.toLowerCase() != 'rinkeby' && body.blockchain.toLowerCase() != 'mainnet' && body.blockchain.toLowerCase() != 'kovan' && body.blockchain.toLowerCase() != 'ropsten') {
-      cb({ code: 400, message: "blockchain parameter not valid" });
+      cb({ code: 500, message: "blockchain parameter not valid" });
       return;
     }
 

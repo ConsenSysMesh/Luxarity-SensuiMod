@@ -38,36 +38,36 @@ class MakeDonationHandler {
       try {
         body = JSON.parse(event.body);
       } catch (e) {
-        cb({ code: 400, message: "no json body" });
+        cb({ code: 500, message: "no json body" });
         return;
       }
     } else {
-      cb({ code: 400, message: "no json body" });
+      cb({ code: 500, message: "no json body" });
       return;
     }
 
     /* checking for inputs */
     if (!body.proofHash) {
-      cb({ code: 400, message: "proofHash parameter missing" });
+      cb({ code: 500, message: "proofHash parameter missing" });
       return;
     }
     if (!body.proofURL) {
-      cb({ code: 400, message: "proofURL parameter missing" });
+      cb({ code: 500, message: "proofURL parameter missing" });
       return;
     }
     if (!body.madeDonationAmount) {
-      cb({ code: 400, message: "madeDonationAmount parameter missing" });
+      cb({ code: 500, message: "madeDonationAmount parameter missing" });
       return;
     }
     if (!body.charityName) {
-      cb({ code: 400, message: "charityNameparameter missing" });
+      cb({ code: 500, message: "charityNameparameter missing" });
       return;
     }
     if (!body.blockchain) {
-      cb({ code: 400, message: "blockchain parameter missing" });
+      cb({ code: 500, message: "blockchain parameter missing" });
       return;
     } else if (body.blockchain.toLowerCase() != 'rinkeby' && body.blockchain.toLowerCase() != 'mainnet' && body.blockchain.toLowerCase() != 'kovan' && body.blockchain.toLowerCase() != 'ropsten') {
-      cb({ code: 400, message: "blockchain parameter not valid" });
+      cb({ code: 500, message: "blockchain parameter not valid" });
       return;
     }
 

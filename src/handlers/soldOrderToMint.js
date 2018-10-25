@@ -38,44 +38,44 @@ class SoldOrderToMintHandler {
       try {
         body = JSON.parse(event.body);
       } catch (e) {
-        cb({ code: 400, message: "no json body" });
+        cb({ code: 500, message: "no json body" });
         return;
       }
     } else {
-      cb({ code: 400, message: "no json body" });
+      cb({ code: 500, message: "no json body" });
       return;
     }
 
     /* checking for inputs */
     if (!body.tokenURI) {
-      cb({ code: 400, message: "tokenURI parameter missing" });
+      cb({ code: 500, message: "tokenURI parameter missing" });
       return;
     }
     if (!body.totalPrice) {
-      cb({ code: 400, message: "saleAmount parameter missing" });
+      cb({ code: 500, message: "saleAmount parameter missing" });
       return;
     }
     if (!body.customerEmailSHA256) {
-      cb({ code: 400, message: "buyerIDparameter missing" });
+      cb({ code: 500, message: "buyerIDparameter missing" });
       return;
     }
     if (!body.orderId) {
-      cb({ code: 400, message: "orderId missing" });
+      cb({ code: 500, message: "orderId missing" });
       return;
     }
     if (!body.orderNumber) {
-      cb({ code: 400, message: "orderNumber missing" });
+      cb({ code: 500, message: "orderNumber missing" });
       return;
     }
     if (!body.redemptionPinSHA256) {
-      cb({ code: 400, message: "redemptionHash parameter missing" });
+      cb({ code: 500, message: "redemptionHash parameter missing" });
       return;
     }
     if (!body.blockchain) {
-      cb({ code: 400, message: "blockchain parameter missing" });
+      cb({ code: 500, message: "blockchain parameter missing" });
       return;
     } else if (body.blockchain.toLowerCase() != 'rinkeby' && body.blockchain.toLowerCase() != 'mainnet' && body.blockchain.toLowerCase() != 'kovan' && body.blockchain.toLowerCase() != 'ropsten') {
-      cb({ code: 400, message: "blockchain parameter not valid" });
+      cb({ code: 500, message: "blockchain parameter not valid" });
       return;
     }
 
@@ -85,7 +85,7 @@ class SoldOrderToMintHandler {
     try {
       rawTx = await this.ethereumMgr.makeTx({
         tokenURI: body.tokenURI,
-        saleAmount: body.totalPrice,
+        saleAmount: Math.floor(body.totalPrice),
         buyerID: body.customerEmailSHA256,
         redemptionHash: body.redemptionPinSHA256,
         blockchain: body.blockchain.toLowerCase(),

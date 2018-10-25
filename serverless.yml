@@ -24,6 +24,23 @@ provider:
       Action:
       - s3:*
       Resource: 'arn:aws:s3:::*'
+    - Effect: Allow
+      Action:
+      - "lambda:InvokeFunction"
+      Resource: "*"
+    - Effect: Allow
+      Action:
+      - "sqs:ChangeMessageVisibility"
+      - "sqs:DeleteMessage"
+      - "sqs:GetQueueAttributes"
+      - "sqs:ReceiveMessage"
+      - "sqs:SendMessage"
+      - "sqs:GetQueueUrl"
+      - "sqs:listQueues"
+      - "lambda:CreateEventSourceMapping"
+      - "lambda:ListEventSourceMappings"
+      - "lambda:ListFunction"
+      Resource: "*"
 
   environment:
       SECRETS: ${self:custom.kmsSecrets.secrets.SECRETS}
