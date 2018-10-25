@@ -1,6 +1,17 @@
 /*
 method: soldOrderToMint
-needed parameters in url endpoint:
+  - orderId,
+  - totalPrice
+  - orderNumber
+  - customerEmail
+
+needed parameters for api endpoint:
+  - string tokenURI
+  - uint256 saleAmount
+  - bytes32 buyerID
+  - bytes32 redemptionHash
+
+needed parameters for smart contract:
   - string tokenURI
   - uint256 saleAmount
   - bytes32 buyerID
@@ -11,6 +22,13 @@ at the top of the file):
   - authMgr*
   - ethereumMgr
 */
+
+//resources
+import sha256 from 'js-sha256';
+//import IPFS from 'ipfs';
+//import fs from 'file-system';
+
+//class
 class SoldOrderToMintHandler {
   constructor(ethereumMgr) {
     this.ethereumMgr = ethereumMgr;
@@ -40,7 +58,7 @@ class SoldOrderToMintHandler {
 
     //check body
     console.log(body);
-    console.log(body.toString()); 
+    console.log(body.toString());
 
     /* checking for inputs */
     if (!body.tokenURI) {
@@ -74,6 +92,11 @@ class SoldOrderToMintHandler {
       cb({ code: 500, message: "blockchain parameter not valid" });
       return;
     }
+
+    //create hashed buyerID, redemptionHash
+    let buyerID = sha256(body.customerEmail);
+    let secretSum = body.orderNumber + body.orderId;
+    let redemptionHash = sha256(secretSum);
 
     //get transaction made
     console.log('Building rawtx');

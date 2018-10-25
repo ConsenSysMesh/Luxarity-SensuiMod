@@ -10,6 +10,11 @@ at the top of the file):
   - authMgr*
   - ethereumMgr
 */
+
+//resources
+import sha256 from 'js-sha256';
+
+//class
 class ChooseDonationHandler {
   constructor(ethereumMgr) {
     this.ethereumMgr = ethereumMgr;
@@ -46,15 +51,20 @@ class ChooseDonationHandler {
     }
 
     /* checking for inputs */
+<<<<<<< HEAD
     if (!body.customerEmailSHA256) {
       cb({ code: 400, message: "buyerID parameter missing" });
+=======
+    if (!body.customerEmail && typeof(body.orderId) === "string") {
+      cb({ code: 400, message: "customerEmail missing" });
+>>>>>>> 898df6d143cadb11dba0cb268afab8dded438f3b
       return;
     }
-    if (!body.charityName) {
+    if (!body.charityName && typeof(body.charityName) === "string") {
       cb({ code: 400, message: "charityName parameter missing" });
       return;
     }
-    if (!body.chosenDonateAmount) {
+    if (!body.chosenDonateAmount && typeof(body.chosenDonateAmount) === "number") {
       cb({ code: 400, message: "chosenDonateAmount parameter missing" });
       return;
     }
@@ -66,12 +76,19 @@ class ChooseDonationHandler {
       return;
     }
 
+    //create hashed buyerID, redemptionHash
+    let buyerID = sha256(body.customerEmail);
+
     //get transaction made
     console.log('Building rawtx');
     let rawTx;
     try {
       rawTx = await this.ethereumMgr.makeTx({
+<<<<<<< HEAD
         buyerID: body.customerEmailSHA256,
+=======
+        buyerID: buyerID,
+>>>>>>> 898df6d143cadb11dba0cb268afab8dded438f3b
         charityName: body.charityName,
         chosenDonateAmount: body.chosenDonateAmount,
         blockchain: body.blockchain.toLowerCase(),
