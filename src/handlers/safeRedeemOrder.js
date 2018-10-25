@@ -36,42 +36,25 @@ class SafeRedeemOrderHandler {
     }
     */
 
-    let body;
+    let body = event.Records[0].body; 
+    try { 
+      body = JSON.parse(body); 
+    } catch(e) { 
+      cb({ code: 500, message: "no json body" }); 
+      return; 
+    } 
 
-    if (event && !event.body) {
-      body = event;
-    } else if (event && event.body) {
-      try {
-        body = JSON.parse(event.body);
-      } catch (e) {
-        cb({ code: 500, message: "no json body" });
-        return;
-      }
-    } else {
-      cb({ code: 500, message: "no json body" });
-      return;
-    }
+    //check body
+    console.log(body);
+    console.log(body.toString());
 
     /* checking for inputs */
-<<<<<<< HEAD
     if (!body.customerEmailSHA256) {
       cb({ code: 500, message: "buyerID parameter missing" });
       return;
     }
     if (!body.redemptionPinSHA256) {
       cb({ code: 500, message: "redemptionHash parameter missing" });
-=======
-    if (!body.customerEmail && typeof(body.orderId) === "string") {
-      cb({ code: 400, message: "customerEmail missing" });
-      return;
-    }
-    if (!body.orderId && typeof(body.orderId) === "number") {
-      cb({ code: 400, message: "orderId parameter missing" });
-      return;
-    }
-    if (!body.orderNumber && typeof(body.orderId) === "number") {
-      cb({ code: 400, message: "orderNumber parameter missing" });
->>>>>>> 898df6d143cadb11dba0cb268afab8dded438f3b
       return;
     }
     if (!body.buyerAddress) {
@@ -100,13 +83,8 @@ class SafeRedeemOrderHandler {
     let rawTx;
     try {
       rawTx = await this.ethereumMgr.makeTx({
-<<<<<<< HEAD
         buyerID: body.customerEmailSHA256,
         redemptionHash: body.redemptionPinSHA256,
-=======
-        buyerID: buyerID,
-        redemptionHash: redemptionHash,
->>>>>>> 898df6d143cadb11dba0cb268afab8dded438f3b
         buyerAddress: body.buyerAddress,
         tokenId: body.tokenId,
         blockchain: body.blockchain.toLowerCase(),

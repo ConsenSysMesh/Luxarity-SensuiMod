@@ -34,30 +34,21 @@ class ChooseDonationHandler {
     }
     */
 
-    let body;
+    let body = event.Records[0].body; 
+    try { 
+      body = JSON.parse(body); 
+    } catch(e) { 
+      cb({ code: 500, message: "no json body" }); 
+      return; 
+    } 
 
-    if (event && !event.body) {
-      body = event;
-    } else if (event && event.body) {
-      try {
-        body = JSON.parse(event.body);
-      } catch (e) {
-        cb({ code: 400, message: "no json body" });
-        return;
-      }
-    } else {
-      cb({ code: 400, message: "no json body" });
-      return;
-    }
+    //check body
+    console.log(body);
+    console.log(body.toString());
 
     /* checking for inputs */
-<<<<<<< HEAD
     if (!body.customerEmailSHA256) {
       cb({ code: 400, message: "buyerID parameter missing" });
-=======
-    if (!body.customerEmail && typeof(body.orderId) === "string") {
-      cb({ code: 400, message: "customerEmail missing" });
->>>>>>> 898df6d143cadb11dba0cb268afab8dded438f3b
       return;
     }
     if (!body.charityName && typeof(body.charityName) === "string") {
@@ -84,11 +75,7 @@ class ChooseDonationHandler {
     let rawTx;
     try {
       rawTx = await this.ethereumMgr.makeTx({
-<<<<<<< HEAD
         buyerID: body.customerEmailSHA256,
-=======
-        buyerID: buyerID,
->>>>>>> 898df6d143cadb11dba0cb268afab8dded438f3b
         charityName: body.charityName,
         chosenDonateAmount: body.chosenDonateAmount,
         blockchain: body.blockchain.toLowerCase(),

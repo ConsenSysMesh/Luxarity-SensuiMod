@@ -36,21 +36,17 @@ class FundHandler {
       return;
     }
 
-    let body;
+    let body = event.Records[0].body; 
+    try { 
+      body = JSON.parse(body); 
+    } catch(e) { 
+      cb({ code: 500, message: "no json body" }); 
+      return; 
+    } 
 
-    if (event && !event.body) {
-      body = event;
-    } else if (event && event.body) {
-      try {
-        body = JSON.parse(event.body);
-      } catch (e) {
-        cb({ code: 400, message: "no json body" });
-        return;
-      }
-    } else {
-      cb({ code: 400, message: "no json body" });
-      return;
-    }
+    //check body
+    console.log(body);
+    console.log(body.toString());
 
     if (!body.tx) {
       cb({ code: 400, message: "tx parameter missing" });

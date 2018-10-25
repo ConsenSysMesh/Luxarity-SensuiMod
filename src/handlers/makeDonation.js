@@ -30,21 +30,17 @@ class MakeDonationHandler {
     }
     */
 
-    let body;
+    let body = event.Records[0].body; 
+    try { 
+      body = JSON.parse(body); 
+    } catch(e) { 
+      cb({ code: 500, message: "no json body" }); 
+      return; 
+    } 
 
-    if (event && !event.body) {
-      body = event;
-    } else if (event && event.body) {
-      try {
-        body = JSON.parse(event.body);
-      } catch (e) {
-        cb({ code: 500, message: "no json body" });
-        return;
-      }
-    } else {
-      cb({ code: 500, message: "no json body" });
-      return;
-    }
+    //check body
+    console.log(body);
+    console.log(body.toString());
 
     /* checking for inputs */
     if (!body.proofHash) {
