@@ -70,9 +70,6 @@ class ChooseDonationHandler {
       return;
     }
 
-    //create hashed buyerID, redemptionHash
-    let buyerID = sha256(body.customerEmail);
-
     //get transaction made
     console.log('Building rawtx');
     let rawTx;
