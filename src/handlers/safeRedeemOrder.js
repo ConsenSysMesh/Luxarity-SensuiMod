@@ -13,9 +13,6 @@ at the top of the file):
   - ethereumMgr
 */
 
-//resources
-import sha256 from 'js-sha256';
-
 //class
 class SafeRedeemOrderHandler {
   constructor(ethereumMgr) {

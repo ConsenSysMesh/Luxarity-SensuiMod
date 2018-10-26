@@ -23,11 +23,6 @@ at the top of the file):
   - ethereumMgr
 */
 
-//resources
-import sha256 from 'js-sha256';
-//import IPFS from 'ipfs';
-//import fs from 'file-system';
-
 //class
 class SoldOrderToMintHandler {
   constructor(ethereumMgr) {
