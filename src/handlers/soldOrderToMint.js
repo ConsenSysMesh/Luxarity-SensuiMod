@@ -88,11 +88,6 @@ class SoldOrderToMintHandler {
       return;
     }
 
-    //create hashed buyerID, redemptionHash
-    let buyerID = sha256(body.customerEmail);
-    let secretSum = body.orderNumber + body.orderId;
-    let redemptionHash = sha256(secretSum);
-
     //get transaction made
     console.log('Building rawtx');
     let rawTx;

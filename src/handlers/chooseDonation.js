@@ -54,11 +54,11 @@ class ChooseDonationHandler {
       cb({ code: 400, message: "buyerID parameter missing" });
       return;
     }
-    if (!body.charityName && typeof(body.charityName) === "string") {
+    if (!body.charityName) {
       cb({ code: 400, message: "charityName parameter missing" });
       return;
     }
-    if (!body.chosenDonateAmount && typeof(body.chosenDonateAmount) === "number") {
+    if (!body.chosenDonateAmount) {
       cb({ code: 400, message: "chosenDonateAmount parameter missing" });
       return;
     }
