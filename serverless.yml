@@ -70,9 +70,11 @@ functions:
      - http:
          path: v1/fund #Legacy
          method: post
+         cors: true
      - http:
          path: fund
          method: post
+         cors: true
   relay:
     handler: src/api_handler.relay
     description: Relay handler
@@ -81,9 +83,11 @@ functions:
      - http:
          path: v2/relay #Legacy
          method: post
+         cors: true
      - http:
          path: relay
          method: post
+         cors: true
   checkPending:
     handler: src/api_handler.checkPending
     description: check if pending tx are mined
@@ -91,6 +95,7 @@ functions:
      - http:
          path: checkPending
          method: post
+         cors: true
   checkBalances:
     handler: src/jobs_handler.checkBalances
     description: check for balances on all address used and report if low funds
@@ -98,6 +103,7 @@ functions:
       - schedule:
           rate: rate(10 minutes)
           enabled: true
+          cors: true
   fixNonces:
     handler: src/script_handler.fixNonces
     description: fix for blockchain nonces against database stored nonce

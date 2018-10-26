@@ -158,35 +158,42 @@ const preHandler = (handler, event, context, callback) => {
 const doHandler = (handler, event, context, callback) => {
   handler.handle(event, context, (err, resp) => {
     let response;
-    if (err == null) {
-      response = {
-        statusCode: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT"
-        },
-        body: JSON.stringify({
-          status: "success",
-          data: resp
-        })
-      };
-    } else {
-      //console.log(err);
-      let code = 500;
-      if (err.code) code = err.code;
-      let message = err;
-      if (err.message) message = err.message;
+    console.log("response: "+response);
 
-      response = {
-        statusCode: code,
-        body: JSON.stringify({
-          status: "error",
-          message: message
-        })
-      };
-    }
+     if (err == null) {
+          response = {
+            statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT"
+            },
+            body: JSON.stringify({
+              status: "success",
+              data: resp
+            })
+          };
+      } else {
+        console.log(err);
+          let code = 500;
+          if (err.code) code = err.code;
+          let message = err;
+          if (err.message) message = err.message;
 
-    callback(null, response);
+          response = {
+            statusCode: code,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT"
+            },
+            body: JSON.stringify({
+              status: "error",
+              message: message
+            })
+           };
+        }
+
+      callback(null, response);
   });
-};
+}

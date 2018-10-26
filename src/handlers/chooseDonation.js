@@ -31,17 +31,18 @@ class ChooseDonationHandler {
     }
     */
 
+    let body; 
     if (event && !event.body) {
       body = event;
     } else if (event && event.body) {
       try {
         body = JSON.parse(event.body);
       } catch (e) {
-        cb({ code: 500, message: "no json body" });
+        cb({ code: 500, message: "no json body - error in parsing" });
         return;
       }
     } else {
-      cb({ code: 500, message: "no json body" });
+      cb({ code: 500, message: "no json body - improper format or object" });
       return;
     }
 
