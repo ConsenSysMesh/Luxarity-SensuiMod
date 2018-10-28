@@ -41,6 +41,31 @@ async insertOrder(orderid,ordernumber,customeremail,totalcost,redemptionhash,tok
     }
   }
 
+    async insertDonation(causeid,causename,orderid,donationamount) {
+    if (!this.pgUrl) throw "no pgUrl set";
+
+    console.log("\nMade all input checks, in DatabaseMgr. insertOrder");
+
+    const client = new Client({
+      connectionString: this.pgUrl
+    });
+
+    try {
+      await client.connect();
+      const res = await client.query(
+        "INSERT INTO causes(causeid,causename,orderid,donationamount) \
+             VALUES ($1,$2,$3,$4) returning *",
+        [causeid,causename,orderid,donationamount]
+      );
+      console.log(res.rows[0].orderid);
+      return res.rows[0].orderid;
+    } catch (e) {
+      throw e;
+    } finally {
+      await client.end();
+    }
+  }
+
 }
 
 module.exports = DatabaseMgr;
