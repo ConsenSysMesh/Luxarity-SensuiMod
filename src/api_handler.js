@@ -3,6 +3,7 @@ const AWS = require("aws-sdk");
 
 const AuthMgr = require("./lib/authMgr");
 const EthereumMgr = require("./lib/ethereumMgr");
+const DatabaseMgr = require("./lib/databaseMgr");
 const TxMgr = require("./lib/txMgr");
 const MetaTxMgr = require("./lib/metaTxMgr");
 const FundHandler = require("./handlers/fund");
@@ -19,11 +20,12 @@ tx being signed, sent to relay, verified, funded, and sent to blockchain
 */
 let authMgr = new AuthMgr();
 let ethereumMgr = new EthereumMgr();
+let databaseMgr = new DatabaseMgr();
 let txMgr = new TxMgr(ethereumMgr);
 let metaTxMgr = new MetaTxMgr(ethereumMgr);
 let fundHandler = new FundHandler(authMgr, txMgr, ethereumMgr);
 let checkPendingHandler = new CheckPendingHandler(ethereumMgr);
-let soldOrderToMintHandler = new SoldOrderToMintHandler(ethereumMgr);
+let soldOrderToMintHandler = new SoldOrderToMintHandler(ethereumMgr, databaseMgr);
 let chooseDonationHandler = new ChooseDonationHandler(ethereumMgr);
 let makeDonationHandler = new MakeDonationHandler(ethereumMgr);
 let redeemOrderHandler = new RedeemOrderHandler(ethereumMgr);
@@ -62,7 +64,7 @@ needed parameters in url endpoint:
   - bytes32 _redemptionHash
 */
 module.exports.soldOrderToMint = (event, context, callback) => {
-  preHandler(soldOrderToMintHandler, event, context, callback);
+  preHandlerSoldOrderToMint(soldOrderToMintHandler, event, context, callback);
 };
 
 /*
@@ -148,6 +150,27 @@ const preHandler = (handler, event, context, callback) => {
         const decrypted = String(data.Plaintext);
         ethereumMgr.setSecrets(JSON.parse(decrypted));
         authMgr.setSecrets(JSON.parse(decrypted));
+        doHandler(handler, event, context, callback);
+      });
+  } else {
+    doHandler(handler, event, context, callback);
+  }
+};
+
+const preHandlerSoldOrderToMint = (handler, event, context, callback) => {
+  console.log(event);
+  if (!ethereumMgr.isSecretsSet() || !authMgr.isSecretsSet() || !databaseMgr.isSecretsSet()) {
+    const kms = new AWS.KMS();
+    kms
+      .decrypt({
+        CiphertextBlob: Buffer(process.env.SECRETS, "base64")
+      })
+      .promise()
+      .then(data => {
+        const decrypted = String(data.Plaintext);
+        ethereumMgr.setSecrets(JSON.parse(decrypted));
+        authMgr.setSecrets(JSON.parse(decrypted));
+        databaseMgr.setSecrets(JSON.parse(decrypted));
         doHandler(handler, event, context, callback);
       });
   } else {
