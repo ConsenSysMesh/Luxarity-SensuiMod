@@ -25,8 +25,8 @@ at the top of the file):
 
 //class
 class SoldOrderToMintHandler {
-  constructor(ethereumMgr) {
-    this.ethereumMgr = ethereumMgr;
+  constructor(ethereumMgr, databaseMgr) {
+    this.ethereumMgr = ethereumMgr,
     this.databaseMgr = databaseMgr;
   }
 
