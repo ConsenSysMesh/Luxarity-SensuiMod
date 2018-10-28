@@ -64,7 +64,7 @@ needed parameters in url endpoint:
   - bytes32 _redemptionHash
 */
 module.exports.soldOrderToMint = (event, context, callback) => {
-  preHandlerSoldOrderToMint(soldOrderToMintHandler, event, context, callback);
+  preHandlerDatabase(soldOrderToMintHandler, event, context, callback);
 };
 
 /*
@@ -157,7 +157,7 @@ const preHandler = (handler, event, context, callback) => {
   }
 };
 
-const preHandlerSoldOrderToMint = (handler, event, context, callback) => {
+const preHandlerDatabase = (handler, event, context, callback) => {
   console.log(event);
   if (!ethereumMgr.isSecretsSet() || !authMgr.isSecretsSet() || !databaseMgr.isSecretsSet()) {
     const kms = new AWS.KMS();
