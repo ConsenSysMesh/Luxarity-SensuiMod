@@ -25,8 +25,9 @@ at the top of the file):
 
 //class
 class SoldOrderToMintHandler {
-  constructor(ethereumMgr) {
-    this.ethereumMgr = ethereumMgr;
+  constructor(ethereumMgr, databaseMgr) {
+    this.ethereumMgr = ethereumMgr,
+    this.databaseMgr = databaseMgr;
   }
 
   async handle(event, context, cb) {
@@ -83,6 +84,10 @@ class SoldOrderToMintHandler {
       cb({ code: 500, message: "saleAmount parameter missing" });
       return;
     }
+    if (!body.customerEmail) {
+      cb({ code: 500, message: "buyerIDparameter missing" });
+      return;
+    }
     if (!body.customerEmailSHA256) {
       cb({ code: 500, message: "buyerIDparameter missing" });
       return;
@@ -131,6 +136,7 @@ class SoldOrderToMintHandler {
     console.log(body.blockchain.toLowerCase());
     let signedRawTx;
     try {
+      console.log("sign tx from soldOrderToMint")
       signedRawTx = await this.ethereumMgr.signTx({
         tx: rawTx,
         blockchain: body.blockchain.toLowerCase(),
@@ -145,15 +151,26 @@ class SoldOrderToMintHandler {
     //sets transaction hash from created and sent signed transaction - CHANGE
     let txHash;
     try {
+      console.log("sending raw tx from soldOrderToMint")
       txHash = await this.ethereumMgr.sendRawTransaction(
         signedRawTx,
         body.blockchain.toLowerCase(),
       );
-      cb(null, txHash);
+      //cb(null, txHash);
     } catch (err) {
       console.log("Error on this.ethereumMgr.sendRawTransaction");
       console.log(err);
       cb({ code: 500, message: "Send Raw Tx Error: " +  err.message });
+      return;
+    }
+
+     //insert into orders table offchain 
+    try{
+      let dborderid = await this.databaseMgr.insertOrder(body.orderId,body.orderNumber,body.customerEmail,body.totalPrice,body.redemptionPinSHA256,body.tokenURI,body.customerEmailSHA256);
+      console.log("db orderid inserted: "+dborderid);
+      cb(null, txHash);
+    }catch (err){
+      cb({ code: 500, message: "soldOrderToMint db insertOrder error: " + err.message });
       return;
     }
 
