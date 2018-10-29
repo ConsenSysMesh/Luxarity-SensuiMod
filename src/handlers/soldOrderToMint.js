@@ -121,6 +121,7 @@ class SoldOrderToMintHandler {
         saleAmount: Math.floor(body.totalPrice),
         buyerID: body.customerEmailSHA256,
         redemptionHash: body.redemptionPinSHA256,
+        orderNumber: body.orderNumber,
         blockchain: body.blockchain.toLowerCase(),
         methodName: 'soldOrderToMint',
       });
@@ -164,7 +165,7 @@ class SoldOrderToMintHandler {
       return;
     }
 
-     //insert into orders table offchain 
+     //insert into orders table offchain
     try{
       let dborderid = await this.databaseMgr.insertOrder(body.orderId,body.orderNumber,body.customerEmail,body.totalPrice,body.redemptionPinSHA256,body.tokenURI,body.customerEmailSHA256);
       console.log("db orderid inserted: "+dborderid);

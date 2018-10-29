@@ -31,7 +31,7 @@ class ChooseDonationHandler {
     }
     */
 
-    let body; 
+    let body;
     if (event && !event.body) {
       body = event;
     } else if (event && event.body) {
@@ -59,6 +59,14 @@ class ChooseDonationHandler {
       cb({ code: 400, message: "charityName parameter missing" });
       return;
     }
+    if (!body.orderNumber) {
+      cb({ code: 400, message: "orderNumber parameter missing" });
+      return;
+    }
+    if (!body.tokenId) {
+      cb({ code: 400, message: "tokenId parameter missing" });
+      return;
+    }
     if (!body.chosenDonateAmount) {
       cb({ code: 400, message: "chosenDonateAmount parameter missing" });
       return;
@@ -79,6 +87,8 @@ class ChooseDonationHandler {
         buyerID: body.customerEmailSHA256,
         charityName: body.charityName,
         chosenDonateAmount: body.chosenDonateAmount,
+        orderNumber: body.orderNumber,
+        tokenId: body.tokenId, 
         blockchain: body.blockchain.toLowerCase(),
         methodName: 'chooseDonation',
       });
