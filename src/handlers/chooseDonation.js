@@ -14,7 +14,8 @@ at the top of the file):
 //class
 class ChooseDonationHandler {
   constructor(ethereumMgr) {
-    this.ethereumMgr = ethereumMgr;
+    this.ethereumMgr = ethereumMgr,
+    this.databaseMgr = databaseMgr;
   }
 
   async handle(event, context, cb) {
@@ -63,12 +64,24 @@ class ChooseDonationHandler {
       cb({ code: 400, message: "chosenDonateAmount parameter missing" });
       return;
     }
+    if (!body.orderId) {
+      cb({ code: 400, message: "chosenDonateAmount parameter missing" });
+      return;
+    }
     if (!body.blockchain) {
       cb({ code: 400, message: "blockchain parameter missing" });
       return;
     } else if (body.blockchain.toLowerCase() != 'rinkeby' && body.blockchain.toLowerCase() != 'mainnet' && body.blockchain.toLowerCase() != 'kovan' && body.blockchain.toLowerCase() != 'ropsten') {
       cb({ code: 400, message: "blockchain parameter not valid" });
       return;
+    }
+
+    let body.causeId ;
+    if(charityName == 'charity_name_to_change'){
+      body.causeId = 1;
+    }
+    if(charityName == 'charity_name_to_change2'){
+      body.causeId = 2;
     }
 
     //get transaction made
@@ -112,11 +125,20 @@ class ChooseDonationHandler {
         signedRawTx,
         body.blockchain.toLowerCase(),
       );
-      cb(null, txHash);
+      //cb(null, txHash);
     } catch (err) {
       console.log("Error on this.ethereumMgr.sendRawTransaction");
       console.log(err);
       cb({ code: 500, message: "Send Raw Tx Error: " +  err.message });
+      return;
+    }
+
+    try{
+      let dborderid = await this.databaseMgr.insertDonation(body.causeId,body.charityName,body.orderId,body.chosenDonateAmount);
+      console.log("db orderid inserted: "+dborderid);
+      cb(null, txHash);
+    }catch (err){
+      cb({ code: 500, message: "soldOrderToMint db insertOrder error: " + err.message });
       return;
     }
 
