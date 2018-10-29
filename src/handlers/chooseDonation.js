@@ -76,7 +76,7 @@ class ChooseDonationHandler {
       return;
     }
 
-    let body.causeId ;
+    
     if(charityName == 'charity_name_to_change'){
       body.causeId = 1;
     }
