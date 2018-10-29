@@ -6,3 +6,5 @@
 //chooseDonation
 
 { "customerEmailSHA256": "0xe58e151a26e02da3c87c04685390219fdad1790462511124a11f44c9d06eeb03" , "charityName": "charity_name_to_change" , "chosenDonateAmount": 100.00, "orderId" : "44" "blockchain": "Rinkeby", "orderNumber": '33', "tokenId": "https://ipfs.io/ipfs/Qmd4EUJntx6N3QiSu8YcrcqNjvTuiaP1PJcFsBsGUXTLFJ" }
+
+{ "customerEmailSHA256" : "0xe58e151a26e02da3c87c04685390219fdad1790462511124a11f44c9d06eeb03" , "charityName" : "charity_name_to_change", "chosenDonateAmount" : 100, "orderId" : 44, "blockchain" : "Rinkeby" , "orderNumber" : 33, "tokenId" : "https://ipfs.io/ipfs/Qmd4EUJntx6N3QiSu8YcrcqNjvTuiaP1PJcFsBsGUXTLFJ"  }
