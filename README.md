@@ -214,9 +214,9 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 - **safeRedeemOrder:** luxarity-lambda-sensui-csi-develop-safeRedeemOrder
 
 **inputs per function (smart contract):**
-- **soldOrderToMint:** {"tokenURI": "STRING", "totalPrice": UINT256, "customerEmailSHA256": SHA256 STRING of CUSTOMER EMAIL, "orderId": UINT256, "orderNumber": UINT256, "redemptionPinSHA256": SHA256 STRING of ORDER ID + ORDER NUMBER, "blockchain": "STRING OF NETWORK BEING USED"}
+- **soldOrderToMint:** {"tokenURI": "STRING", "totalPrice": UINT256, "customerEmailSHA256": SHA256 STRING of CUSTOMER EMAIL, "orderId": UINT256, "orderNumber": UINT256, "redemptionPinSHA256": SHA256 STRING of ORDER ID + ORDER NUMBER, "blockchain": "STRING OF NETWORK BEING USED", "customerEmail": EMAIL OF CUSTOMER}
 
-- **chooseDonation:** {"customerEmailSHA256": STRING, "charityName": UINT256 , "chosenDonateAmount": UINT256, "blockchain": "STRING OF NETWORK BEING USED"}
+- **chooseDonation:** {"customerEmailSHA256": STRING, "charityName": UINT256 , "chosenDonateAmount": UINT256, "blockchain": "STRING OF NETWORK BEING USED", "orderNumber": UINT256, "tokenId": UINT256}
 
 - **makeDonation:** {"proofHash": STRING THAT SHOULD BE SHA256 HASH OF PROOF OF DONATION DATA, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING", "blockchain": "STRING OF NETWORK BEING USED"}
 
@@ -251,6 +251,11 @@ User: b4siga
 Password: Social1mp4ct
 Database: lux
 Port: 5432
+
+## Smart Contract Dependencies 
+This service uses the LuxOrder smart contract. It currenly operates with the following instantiations:  
+1. LuxOrders V1: 0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828
+2. LuxOrders V2: 0x9a183bef9cb2ce63481c4315ddb84857040a3d39
   
 ## Common Bugs 
 
