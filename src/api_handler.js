@@ -26,7 +26,7 @@ let metaTxMgr = new MetaTxMgr(ethereumMgr);
 let fundHandler = new FundHandler(authMgr, txMgr, ethereumMgr);
 let checkPendingHandler = new CheckPendingHandler(ethereumMgr);
 let soldOrderToMintHandler = new SoldOrderToMintHandler(ethereumMgr, databaseMgr);
-let chooseDonationHandler = new ChooseDonationHandler(ethereumMgr);
+let chooseDonationHandler = new ChooseDonationHandler(ethereumMgr, databaseMgr);
 let makeDonationHandler = new MakeDonationHandler(ethereumMgr);
 let redeemOrderHandler = new RedeemOrderHandler(ethereumMgr);
 let safeRedeemOrderHandler = new SafeRedeemOrderHandler(ethereumMgr);
@@ -75,7 +75,7 @@ needed parameters in url endpoint:
   - uint256 _chosenDonateAmount
 */
 module.exports.chooseDonation = (event, context, callback) => {
-  preHandler(chooseDonationHandler, event, context, callback);
+  preHandlerDatabase(chooseDonationHandler, event, context, callback);
 };
 
 /*
