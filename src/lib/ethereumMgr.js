@@ -188,10 +188,10 @@ class EthereumMgr {
     //create data payload for raw transaction
     var payloadData;
     if (dataPayload.methodName == "soldOrderToMint") {
-      var payloadData = functionDef.toPayload([dataPayload.tokenURI, dataPayload.saleAmount, dataPayload.buyerID, dataPayload.redemptionHash]).data;
+      var payloadData = functionDef.toPayload([dataPayload.tokenURI, dataPayload.saleAmount, dataPayload.buyerID, dataPayload.redemptionHash, dataPayload.orderNumber]).data;
       console.log('\nGot the data payload ' + payloadData);
     } else if (dataPayload.methodName == "chooseDonation") {
-      var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.charityName, dataPayload.chosenDonateAmount]).data;
+      var payloadData = functionDef.toPayload([dataPayload.buyerID, dataPayload.charityName, dataPayload.chosenDonateAmount, dataPayload.orderNumber, dataPayload.tokenId]).data;
       console.log('\nGot the data payload ' + payloadData);
     } else if (dataPayload.methodName == "makeDonation") {
       var payloadData = functionDef.toPayload([dataPayload.proofHash, dataPayload.proofURL, dataPayload.madeDonationAmount, dataPayload.charityName]).data;
@@ -209,7 +209,8 @@ class EthereumMgr {
     //from = funding ethereum Address
     //to = contract address
       //test contract v1 address rinkeby: 0xfd2A3ED81b259156DBA0b8FAd149010e6662C8F4
-      //test contract v1 address rinkeby: 0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828
+      //test contract v2 address rinkeby: 0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828
+      //test contract v3 address rinkeby: 0x9a183bef9cb2ce63481c4315ddb84857040a3d39
     let rawTx = {
       from: '0xfAdB0EE528E55bCb5F5Cd3e40D664a66358f5961',
       to: '0x9a183bef9cb2ce63481c4315ddb84857040a3d39',

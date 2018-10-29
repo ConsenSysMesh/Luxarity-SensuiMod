@@ -44,6 +44,7 @@ class SoldOrderToMintHandler {
     }
     */
 
+
     let body = event.Records[0].body; 
     try { 
       body = JSON.parse(body); 
@@ -51,6 +52,24 @@ class SoldOrderToMintHandler {
       cb({ code: 500, message: "no json body" }); 
       return; 
     } 
+
+
+    /*
+    let body;
+    if (event && !event.body) {
+      body = event;
+    } else if (event && event.body) {
+      try {
+        body = JSON.parse(event.body);
+      } catch (e) {
+        cb({ code: 500, message: "no json body - error in parsing" });
+        return;
+      }
+    } else {
+      cb({ code: 500, message: "no json body - improper format or object" });
+      return;
+    }
+    */
 
     //check body
     console.log(body);
@@ -102,6 +121,7 @@ class SoldOrderToMintHandler {
         saleAmount: Math.floor(body.totalPrice),
         buyerID: body.customerEmailSHA256,
         redemptionHash: body.redemptionPinSHA256,
+        orderNumber: body.orderNumber,
         blockchain: body.blockchain.toLowerCase(),
         methodName: 'soldOrderToMint',
       });
@@ -145,7 +165,7 @@ class SoldOrderToMintHandler {
       return;
     }
 
-     //insert into orders table offchain 
+     //insert into orders table offchain
     try{
       let dborderid = await this.databaseMgr.insertOrder(body.orderId,body.orderNumber,body.customerEmail,body.totalPrice,body.redemptionPinSHA256,body.tokenURI,body.customerEmailSHA256);
       console.log("db orderid inserted: "+dborderid);
