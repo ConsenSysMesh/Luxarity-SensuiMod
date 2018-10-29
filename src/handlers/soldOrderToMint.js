@@ -44,7 +44,7 @@ class SoldOrderToMintHandler {
     }
     */
 
-
+    /*
     let body = event.Records[0].body; 
     try { 
       body = JSON.parse(body); 
@@ -52,9 +52,10 @@ class SoldOrderToMintHandler {
       cb({ code: 500, message: "no json body" }); 
       return; 
     } 
+    */
 
 
-    /*
+
     let body;
     if (event && !event.body) {
       body = event;
@@ -69,7 +70,7 @@ class SoldOrderToMintHandler {
       cb({ code: 500, message: "no json body - improper format or object" });
       return;
     }
-    */
+
 
     //check body
     console.log(body);

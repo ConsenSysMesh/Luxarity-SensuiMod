@@ -84,12 +84,15 @@ class ChooseDonationHandler {
       return;
     }
 
-    
-    if(body.charityName == 'charity_name_to_change'){
+
+    if(body.charityName.toUpperCase() === 'HKRITA RESEARCH'){
       body.causeId = 1;
     }
-    if(body.charityName == 'charity_name_to_change2'){
+    if(body.charityName.toUpperCase() === 'HEALTH & WELLNESS HACKATHON'){
       body.causeId = 2;
+    }
+    if(body.charityName.toUpperCase() === 'SCAD + PARSONS'){
+      body.causeId = 3;
     }
 
     //get transaction made
@@ -101,7 +104,7 @@ class ChooseDonationHandler {
         charityName: body.charityName,
         chosenDonateAmount: body.chosenDonateAmount,
         orderNumber: body.orderNumber,
-        tokenId: body.tokenId, 
+        tokenId: body.tokenId,
         blockchain: body.blockchain.toLowerCase(),
         methodName: 'chooseDonation',
       });
