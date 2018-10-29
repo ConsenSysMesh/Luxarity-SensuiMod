@@ -216,7 +216,7 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 **inputs per function (smart contract):**
 - **soldOrderToMint:** {"tokenURI": "STRING", "totalPrice": UINT256, "customerEmailSHA256": SHA256 STRING of CUSTOMER EMAIL, "orderId": UINT256, "orderNumber": UINT256, "redemptionPinSHA256": SHA256 STRING of ORDER ID + ORDER NUMBER, "blockchain": "STRING OF NETWORK BEING USED", "customerEmail": EMAIL OF CUSTOMER}
 
-- **chooseDonation:** {"customerEmailSHA256": STRING, "charityName": UINT256 , "chosenDonateAmount": UINT256, "blockchain": "STRING OF NETWORK BEING USED", "orderNumber": UINT256, "tokenId": UINT256}
+- **chooseDonation:** {"customerEmailSHA256": STRING, "charityName": STRING, "chosenDonateAmount": UINT256, "blockchain": "STRING OF NETWORK BEING USED", "orderNumber": UINT256, "tokenId": UINT256}
 
 - **makeDonation:** {"proofHash": STRING THAT SHOULD BE SHA256 HASH OF PROOF OF DONATION DATA, "proofURL": "STRING" , "madeDonationAmount": UINT256, "charityName": "STRING", "blockchain": "STRING OF NETWORK BEING USED"}
 
