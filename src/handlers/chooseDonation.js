@@ -13,7 +13,7 @@ at the top of the file):
 
 //class
 class ChooseDonationHandler {
-  constructor(ethereumMgr) {
+  constructor(ethereumMgr, databaseMgr) {
     this.ethereumMgr = ethereumMgr,
     this.databaseMgr = databaseMgr;
   }
@@ -77,10 +77,10 @@ class ChooseDonationHandler {
     }
 
     
-    if(charityName == 'charity_name_to_change'){
+    if(body.charityName == 'charity_name_to_change'){
       body.causeId = 1;
     }
-    if(charityName == 'charity_name_to_change2'){
+    if(body.charityName == 'charity_name_to_change2'){
       body.causeId = 2;
     }
 
