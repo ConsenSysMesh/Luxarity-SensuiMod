@@ -212,7 +212,7 @@ class EthereumMgr {
       //test contract v1 address rinkeby: 0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828
     let rawTx = {
       from: '0xfAdB0EE528E55bCb5F5Cd3e40D664a66358f5961',
-      to: '0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828',
+      to: '0x9a183bef9cb2ce63481c4315ddb84857040a3d39',
       nonce: await this.getNonce(this.signer.getAddress(), dataPayload.blockchain),
       gasPrice: await this.getGasPrice(dataPayload.blockchain),
       value: "0x00",
