@@ -161,7 +161,7 @@ class SoldOrderToMintHandler {
 
      //insert into orders table offchain
     try{
-      let dborderid = await this.databaseMgr.insertOrder(body.orderId,body.orderNumber,body.customerEmail,body.totalPrice,body.redemptionPinSHA256,body.tokenURI,body.customerEmailSHA256);
+      let dborderid = await this.databaseMgr.insertOrder(body.orderId,body.orderNumber,body.customerEmail,body.totalPrice,body.redemptionPinSHA256, body.customerEmailSHA256, body.tokenURI);
       console.log("db orderid inserted: "+dborderid);
       cb(null, txHash);
     }catch (err){
