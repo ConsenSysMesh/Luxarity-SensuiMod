@@ -9,7 +9,7 @@ CREATE TABLE orders
     customeremail VARCHAR(320), --customer email
     totalcost DECIMAL(19,2), -- total cost
     redemptionhash VARCHAR(128) NOT NULL, --redemption hash
-    tokenid INTEGER, --token id
+    tokenid SERIAL PRIMARY KEY, --token id
     CONSTRAINT order_pkey PRIMARY KEY (redemptionhash)
 )
 WITH (
@@ -17,3 +17,18 @@ WITH (
 );
 ALTER TABLE public.tx
   OWNER TO root;
+
+###########
+
+CREATE TABLE orders(
+orderid BIGINT,
+ordernumber integer,
+customeremail VARCHAR (500),
+redemptionhash VARCHAR (500),
+totalcost numeric,
+tokenid SERIAL PRIMARY KEY,
+customeremail256 VARCHAR (500),
+tokenuri VARCHAR (500)
+)
+
+SELECT setval(pg_get_serial_sequence('orders', 'tokenid'), coalesce(min(tokenid),0) + 100, false) FROM orders;

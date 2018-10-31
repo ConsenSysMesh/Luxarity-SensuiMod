@@ -1,5 +1,16 @@
 import { Client } from "pg";
 
+/*
+CREATE TABLE orders(
+orderid BIGINT,
+ordernumber integer,
+customeremail VARCHAR (500),
+totalcost numeric,
+tokenid SERIAL PRIMARY KEY,
+customeremail256 VARCHAR (500),
+tokenuri VARCHAR (500)
+)
+*/
 
 
 class DatabaseMgr {
@@ -16,7 +27,7 @@ setSecrets(secrets) {
     this.pgUrl = secrets.PG_URL;
   }
 
-async insertOrder(orderid,ordernumber,customeremail,totalcost,redemptionhash,tokenid,customeremail256) {
+async insertOrder(orderid,ordernumber,customeremail,totalcost,redemptionhash,customeremail256,tokenuri) {
     if (!this.pgUrl) throw "no pgUrl set";
 
     console.log("\nMade all input checks, in DatabaseMgr. insertOrder");
@@ -28,9 +39,9 @@ async insertOrder(orderid,ordernumber,customeremail,totalcost,redemptionhash,tok
     try {
       await client.connect();
       const res = await client.query(
-        "INSERT INTO orders(orderid,ordernumber,customeremail,totalcost,redemptionhash,tokenid,customeremail256) \
+        "INSERT INTO orders(orderid,ordernumber,customeremail,totalcost,redemptionhash,customeremail256,tokenuri) \
              VALUES ($1,$2,$3,$4,$5,$6,$7) returning *",
-        [orderid,ordernumber,customeremail,totalcost,redemptionhash,tokenid,customeremail256]
+        [orderid,ordernumber,customeremail,totalcost,redemptionhash,customeremail256,tokenuri]
       );
       console.log(res.rows[0].orderid);
       return res.rows[0].orderid;
