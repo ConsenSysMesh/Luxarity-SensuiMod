@@ -238,20 +238,6 @@ The authorization header needs a JWT token that is signed by the nisaba service 
 - **safeRedeemOrder:** INSERT into TX Table, UPDATE NONCES Table --> Should keep off-chain store table for easier retreival?
 
 
-**test key and secret key to authorize calls**
-Access Key: AKIAIEYMLW6AU5ZWK7OQ
-Secret Key: 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
-
-**INFURA key used**
-Access Key: dafcac3faf174e009483337759967f85
-
-## Database Credentials 
-Host: luxarity.cijmyc3a39cj.us-east-1.rds.amazonaws.com
-User: b4siga
-Password: Social1mp4ct
-Database: lux
-Port: 5432
-
 ## Smart Contract Dependencies 
 This service uses the LuxOrder smart contract. It currenly operates with the following instantiations:  
 1. LuxOrders V1: 0x365e68bbbd82a639a17eed8c89ccdc5cfedbd828
